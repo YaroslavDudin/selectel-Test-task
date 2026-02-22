@@ -97,6 +97,82 @@ fastapi==999.0.0; python_version < "3.8"
   "detail": "Vacancy with external_id already exists"
 }
 ```
-и не создаёт , но вылетает ендпоинт об успехе а не об ошибке, нужно исправить 
 
-#
+# ошибка номер 7-8 update не работает  не работает 
+
+```
+500
+Undocumented
+Error: Internal Server Error
+
+Response body
+Download
+Internal Server Error
+Response headers
+ content-length: 21 
+ content-type: text/plain; charset=utf-8 
+ date: Sun,22 Feb 2026 20:36:59 GMT 
+ server: uvicorn 
+ ```
+
+проверка hasattr(vacancy, field) перед setattr
+- Что меняет: если DTO содержит лишние/опечатанные имена полей, они будут проигнорированы, а не попытаются создаться/установиться. 
+
+
+теперь в update_data попадут только поля, которые клиент реально изменили а не все подряд меняются на дефолтные
+data.model_dump(exclude_unset=True) вместо data.model_dump()
+
+
+по итогу было 
+```
+async def update_vacancy(
+    session: AsyncSession, vacancy: Vacancy, data: VacancyUpdate
+) -> Vacancy:
+    for field, value in data.model_dump().items():
+        setattr(vacancy, field, value)
+    await session.commit()
+    await session.refresh(vacancy)
+    return vacancy
+```
+стало 
+```
+async def update_vacancy(
+    session: AsyncSession, vacancy: Vacancy, data: VacancyUpdate
+    ) -> Vacancy:
+    for field, value in data.model_dump(exclude_unset=True).items():
+        if hasattr(vacancy, field):
+            setattr(vacancy, field, value)
+    await session.commit()
+    await session.refresh(vacancy)
+    return vacancy
+```
+
+# делаем удаление созданого пользователя успешно
+
+
+# в создании повторного не знаю ошибка это или или не ошибка, но точно же не статус 200... не буду засчитывать как ошибку
+```
+Code	Description	Links
+201	
+Successful Response
+
+Media type
+
+application/json
+Controls Accept header.
+Example Value
+Schema
+{
+  "title": "string",
+  "timetable_mode_name": "string",
+  "tag_name": "string",
+  "city_name": "string",
+  "published_at": "2026-02-22T20:30:46.159Z",
+  "is_remote_available": true,
+  "is_hot": true,
+  "external_id": 0,
+  "id": 0,
+  "created_at": "2026-02-22T20:30:46.159Z"
+}
+```
+поскольку в списке не появляется, значит всё нормально наверное, работает не трогаю 

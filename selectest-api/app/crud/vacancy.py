@@ -46,12 +46,14 @@ async def create_vacancy(session: AsyncSession, data: VacancyCreate) -> Vacancy:
 
 async def update_vacancy(
     session: AsyncSession, vacancy: Vacancy, data: VacancyUpdate
-) -> Vacancy:
-    for field, value in data.model_dump().items():
-        setattr(vacancy, field, value)
+    ) -> Vacancy:
+    for field, value in data.model_dump(exclude_unset=True).items():
+        if hasattr(vacancy, field):
+            setattr(vacancy, field, value)
     await session.commit()
     await session.refresh(vacancy)
     return vacancy
+
 
 
 async def delete_vacancy(session: AsyncSession, vacancy: Vacancy) -> None:
