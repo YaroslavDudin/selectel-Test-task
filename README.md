@@ -21,7 +21,7 @@
 fastapi==999.0.0; python_version < "3.8"
 ```
 
-![alt text](<images\errors\ошибка req text.jpg>)
+![alt text](<images/errors/ошибка req text.jpg>)
 
 # 2 Ошибка
 скачал архив, запустил docker compose up --build, так как env есть , и yml  на том же уровне ,увидел ошибку 
