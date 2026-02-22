@@ -42,9 +42,9 @@ app-1  | database_url
 ```
 ошибка
 ![alt text](<images/errors/ошибка database.jpg>)
-![alt text](<images\errors\ошикба database1.jpg>)
+![alt text](<images/errors/ошикба database1.jpg>)
 фикс
-![alt text](<images\fix\исправлено database.jpg>)
+![alt text](<images/fix/исправлено database.jpg>)
 # 3 Ошибка 
 
 Обновляется каждые 5 секунд , а не минут как написано в задании , пошёл исправлять 
