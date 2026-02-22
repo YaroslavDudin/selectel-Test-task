@@ -41,8 +41,10 @@ app-1  | database_url
         validation_alias="DATABASE_URL",
 ```
 ошибка
+
 ![alt text](<images/errors/ошибка database.jpg>)
 ![alt text](<images/errors/ошикба database1.jpg>)
+
 фикс
 ![alt text](<images/fix/исправлено database.jpg>)
 # 3 Ошибка 
@@ -63,7 +65,7 @@ minutes==settings.parse_schedule_minutes,
 ошибка 
 ![alt text](<images/errors/ошибка pasertime.jpg>)
 исправлено 
-![alt text](<images\fix\исправлено parsertime.jpg>)
+![alt text](<images/fix/исправлено parsertime.jpg>)
 
 # ошибка 4
 
@@ -84,10 +86,10 @@ app-1  | AttributeError: 'NoneType' object has no attribute 'name'
 Если города нет или имя отсутствует  записываем None
 
 ошибка
-![alt text](<images\errors\ошибка notname.jpg>)
-![alt text](<images\errors\ошибка notname1.jpg>)
+![alt text](<images/errors/ошибка notname.jpg>)
+![alt text](<images/errors/ошибка notname1.jpg>)
 исправлено
-![alt text](<images\fix\исправлено notname.jpg>)
+![alt text](<images/fix/исправлено notname.jpg>)
 
 # ошибка 5
 Открыл чтобы посмотреть в моделях , что происходит 
@@ -109,9 +111,9 @@ app-1  | AttributeError: 'NoneType' object has no attribute 'name'
 
 ```
 ошибка 
-![alt text](<images\errors\ошибка null = бесконечность.jpg>)
+![alt text](<images/errors/ошибка null = бесконечность.jpg>)
 исправлено
-![alt text](<images\fix\испрвлено нулл, адд юник.jpg>)
+![alt text](<images/fix/испрвлено нулл, адд юник.jpg>)
 
 
 # Ошибка 6
@@ -124,9 +126,9 @@ external_id: Mapped[int | None] = mapped_column(Integer, nullable=False , unique
 ```
 
 ошибка 
-![alt text](<images\errors\ошибка null = бесконечность.jpg>)
+![alt text](<images/errors/ошибка null = бесконечность.jpg>)
 исправлено
-![alt text](<images\fix\испрвлено нулл, адд юник.jpg>)
+![alt text](<images/fix/испрвлено нулл, адд юник.jpg>)
 
 
 
@@ -189,9 +191,9 @@ async def update_vacancy(
     return vacancy
 ```
 ошибка 
-![alt text](<images\errors\updatevakancy ошибка.jpg>)
+![alt text](<images/errors/updatevakancy ошибка.jpg>)
 исправлено
-![alt text](<images\fix\updatevakancy исправлено.jpg>)
+![alt text](<images/fix/updatevakancy исправлено.jpg>)
 
 # делаем удаление созданого пользователя успешно
 
