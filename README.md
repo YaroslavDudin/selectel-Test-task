@@ -33,3 +33,21 @@ seconds=settings.parse_schedule_minutes,
 ```
 minutes==settings.parse_schedule_minutes,
 ```
+
+# ошибка 3 
+
+когда проводил docker compose up --build вылетела ошибка 
+```
+File "/app/app/services/parser.py", line 43, in parse_and_store
+app-1  |     "city_name": item.city.name.strip(),
+app-1  |                  ^^^^^^^^^^^^^^
+app-1  | AttributeError: 'NoneType' object has no attribute 'name'
+```
+по такому то пути объект не содержит атрибут имя
+исправил на обработку имени
+```
+"city_name": item.city.name.strip() if item.city and item.city.name else None,
+```
+Если объект city существует и у него есть поле name,
+то берём имя города 
+Если города нет или имя отсутствует  записываем None
