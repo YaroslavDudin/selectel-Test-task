@@ -18,3 +18,18 @@ app-1  | database_url
         validation_alias="DATABASE_URL",
 ```
 
+# 2 Ошибка 
+
+Обновляется каждые 5 секунд , а не минут как написано в задании , пошёл исправлять 
+
+зашел в selectest-api\app\services\scheduler.py
+
+Исправил с 
+
+```
+seconds=settings.parse_schedule_minutes,
+```
+на 
+```
+minutes==settings.parse_schedule_minutes,
+```
