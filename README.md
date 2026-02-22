@@ -51,3 +51,22 @@ app-1  | AttributeError: 'NoneType' object has no attribute 'name'
 Если объект city существует и у него есть поле name,
 то берём имя города 
 Если города нет или имя отсутствует  записываем None
+
+# ошибка 4
+Открыл чтобы посмотреть в моделях , что происходит 
+по пути  selectest-api\app\models\vacancy.py
+есть уникальное поле external_id: Mapped[int | None] = mapped_column(Integer, nullable=True)
+которое позволяет делать null бесконечное количество раз 
+исправил на nullable false 
+ДО
+```
+    external_id: Mapped[int | None] = mapped_column(Integer, nullable=True)
+
+```
+
+ПОСЛЕ
+
+```
+    external_id: Mapped[int | None] = mapped_column(Integer, nullable=False)
+
+```
