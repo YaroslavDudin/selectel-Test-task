@@ -55,7 +55,6 @@ async def update_vacancy(
     return vacancy
 
 
-
 async def delete_vacancy(session: AsyncSession, vacancy: Vacancy) -> None:
     await session.delete(vacancy)
     await session.commit()

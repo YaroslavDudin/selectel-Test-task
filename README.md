@@ -1,6 +1,29 @@
 # selectel-Test-task
 ### UPD Я до этого разбирался несколько часов, а сейчас типо красивое описание делаю , я не гений который всё за 10 минут сделал.
-# 1 Ошибка
+## Для 7-8 Я использовал ИИ. у меня не было знаний о фаст , апи, и сильно чтобы код не кроить и не изобретать велосипед:
+- Разобрал ошибку с помощью ИИ. 
+- С помощью ИИ внёс проверки, тк знаний на указанный параметр, и проверку не имел. С фаст апи не работал до этого момента (один раз с помошью ии, и то не в счёт)
+## Остальное 
+- остальные шаги делал сам смотря просто на вывод из консоли, она зачастую и путь пишет, где нужно было null указал, и прочее, 
+- половина ошибок была прописано в задание, их сразу и проверил req text, и скорость обновления. единственное что, архитектура незнакомая , помучался и поискал
+- далее подробный разбор ошибок, + фото как я это всё находил и исправлял.
+- фото swagger UI в папке Images в корне проекта
+- Проект полностью рабочий : Все эндпоинты работают корректно.
+* Приложение возвращает корректные HTTP-статусы и данные.
+* Приложен скриншот Swagger UI с выполненными успешными
+запросами.
+
+# ошибка номер 1
+в req text дважды дублируется fast api  и он пытается установить несуществующую версию , удаляю .
+
+
+```
+fastapi==999.0.0; python_version < "3.8"
+```
+
+![alt text](<images\errors\ошибка req text.jpg>)
+
+# 2 Ошибка
 скачал архив, запустил docker compose up --build, так как env есть , и yml  на том же уровне ,увидел ошибку 
 
 ```
@@ -17,8 +40,12 @@ app-1  | database_url
 ```
         validation_alias="DATABASE_URL",
 ```
-
-# 2 Ошибка 
+ошибка
+![alt text](<images/errors/ошибка database.jpg>)
+![alt text](<images\errors\ошикба database1.jpg>)
+фикс
+![alt text](<images\fix\исправлено database.jpg>)
+# 3 Ошибка 
 
 Обновляется каждые 5 секунд , а не минут как написано в задании , пошёл исправлять 
 
@@ -33,8 +60,12 @@ seconds=settings.parse_schedule_minutes,
 ```
 minutes==settings.parse_schedule_minutes,
 ```
+ошибка 
+![alt text](<images/errors/ошибка pasertime.jpg>)
+исправлено 
+![alt text](<images\fix\исправлено parsertime.jpg>)
 
-# ошибка 3 
+# ошибка 4
 
 когда проводил docker compose up --build вылетела ошибка 
 ```
@@ -52,12 +83,19 @@ app-1  | AttributeError: 'NoneType' object has no attribute 'name'
 то берём имя города 
 Если города нет или имя отсутствует  записываем None
 
-# ошибка 4
+ошибка
+![alt text](<images\errors\ошибка notname.jpg>)
+![alt text](<images\errors\ошибка notname1.jpg>)
+исправлено
+![alt text](<images\fix\исправлено notname.jpg>)
+
+# ошибка 5
 Открыл чтобы посмотреть в моделях , что происходит 
 по пути  selectest-api\app\models\vacancy.py
 есть уникальное поле external_id: Mapped[int | None] = mapped_column(Integer, nullable=True)
 которое позволяет делать null бесконечное количество раз 
-исправил на nullable false 
+исправил на nullable false  
+* UPD тут загуглил, прав или нет, ибо модели в django строил пользовался uniq  и для админки выводы
 ДО
 ```
     external_id: Mapped[int | None] = mapped_column(Integer, nullable=True)
@@ -70,8 +108,13 @@ app-1  | AttributeError: 'NoneType' object has no attribute 'name'
     external_id: Mapped[int | None] = mapped_column(Integer, nullable=False)
 
 ```
+ошибка 
+![alt text](<images\errors\ошибка null = бесконечность.jpg>)
+исправлено
+![alt text](<images\fix\испрвлено нулл, адд юник.jpg>)
 
-# Ошибка 5 
+
+# Ошибка 6
 не стоит uniq есть уникальное поле external_id: Mapped[int | None] = mapped_column(Integer, nullable=False)
 
 добавил unique=True,
@@ -80,14 +123,13 @@ app-1  | AttributeError: 'NoneType' object has no attribute 'name'
 external_id: Mapped[int | None] = mapped_column(Integer, nullable=False , unique=True,)
 ```
 
+ошибка 
+![alt text](<images\errors\ошибка null = бесконечность.jpg>)
+исправлено
+![alt text](<images\fix\испрвлено нулл, адд юник.jpg>)
 
 
-# ошибка номер 6 
-в req text дважды дублируется fast api  и он пытается установить несуществующую версию , удаляю
 
-```
-fastapi==999.0.0; python_version < "3.8"
-```
 ## запускаю сборку перехожу на сайт
 
 # Отображение работает все поля видны, всё четко. 
@@ -115,12 +157,12 @@ Response headers
  server: uvicorn 
  ```
 
-проверка hasattr(vacancy, field) перед setattr
+## проверка hasattr(vacancy, field) перед setattr
 - Что меняет: если DTO содержит лишние/опечатанные имена полей, они будут проигнорированы, а не попытаются создаться/установиться. 
 
 
-теперь в update_data попадут только поля, которые клиент реально изменили а не все подряд меняются на дефолтные
-data.model_dump(exclude_unset=True) вместо data.model_dump()
+## теперь в update_data попадут только поля, которые клиент реально изменили а не все подряд меняются на дефолтные
+- data.model_dump(exclude_unset=True) вместо data.model_dump()
 
 
 по итогу было 
@@ -146,6 +188,10 @@ async def update_vacancy(
     await session.refresh(vacancy)
     return vacancy
 ```
+ошибка 
+![alt text](<images\errors\updatevakancy ошибка.jpg>)
+исправлено
+![alt text](<images\fix\updatevakancy исправлено.jpg>)
 
 # делаем удаление созданого пользователя успешно
 
